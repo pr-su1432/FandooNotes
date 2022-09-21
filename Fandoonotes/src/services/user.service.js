@@ -2,7 +2,7 @@ import User from '../models/user.model';
 //import jwt from "bcrypt";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-
+import { sendMail } from '../utils/user.util';
 
 
 //create new user
@@ -47,4 +47,31 @@ export const checkLogin = async (userdetails) => {
   }else{
     throw new Error("invalid EmailId")
   }
+};
+
+//get forget Pasword 
+export const forgetPassword = async (userdetails) => {
+  const data = await User.findOne({ EmailId: userdetails.EmailId });
+  if(data != null){
+  var token = jwt.sign({EmailId:data.EmailId,id:data._id},process.env.RESET_SECRET_KEY);
+  var details = await sendMail(data.EmailId,token);
+  return details;
+  }else{
+    throw new Error("invalid EmailId")
+  }
+};
+
+
+//update to Reset Pasword 
+export const resetPassword = async (userdetails) => {
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(userdetails.Password,saltRounds);
+  const data = await User.findOneAndUpdate({ EmailId:userdetails.EmailId },
+  {
+    Password:hashedPassword
+  },
+  {
+    new:true
+  });
+  return data;
 };

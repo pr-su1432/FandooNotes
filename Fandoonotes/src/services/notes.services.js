@@ -1,5 +1,6 @@
 import note from '../models/notes.models';
 
+
 //get all users
 export const getAllNotes = async () => {
   const data = await note.find();
@@ -37,3 +38,38 @@ export const getNotes = async (id) => {
   const data = await note.findById(id);
   return data;
 };
+//Archive  note
+export const archiveNotes = async (_id) => {
+  const data = await note.findByIdAndUpdate(
+
+    { _id:_id, userId:_id.userId},
+
+    {
+      isArchived: true
+    },
+    {
+      new: true
+    }
+  );
+  console.log("archived data=====>", data)
+  return data;
+};
+
+
+
+//trash note
+export const trashNotes = async (_id) => {
+  const data = await note.findByIdAndUpdate(
+    {
+       _id:_id, userId:_id.userId,
+    },
+    {
+      isDeleted: true
+    },
+    {
+      new: true
+    }
+  );
+  console.log("trashed data===>",data)
+  return data;
+}

@@ -19,11 +19,57 @@ export const userAuth = async (req, res, next) => {
       };
     bearerToken = bearerToken.split(' ')[1];
 
-    const { user } = await jwt.verify(bearerToken, 'your-secret-key');
-    res.locals.user = user;
-    res.locals.token = bearerToken;
-    next();
+    await jwt.verify(bearerToken, process.env.SECRET_KEY,function(err, data){
+      if (err) {
+        throw {
+          code: HttpStatus.UNAUTHORIZED,
+          message: 'Authorization token is Incorrect' 
+        };
+      }else {
+        req.body.userId = data.EmailId
+        next();
+      }
+    });
+    //res.locals.user = user;
+    //res.locals.token = bearerToken;
+    
   } catch (error) {
     next(error);
   }
 };
+/**
+ * Middleware to authenticate if user has a valid Authorization token
+ * Authorization: Bearer <token>
+ *
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ */
+ export const resetAuth = async (req, res, next) => {
+  try {
+    let bearerToken = req.params.token;
+
+    if (!bearerToken)
+      throw {
+        code: HttpStatus.BAD_REQUEST,
+        message: 'Authorization token is required'
+      };
+    await jwt.verify(bearerToken, process.env.RESET_SECRET_KEY,function(err,data) {
+      if (err) {
+
+          res.status(HttpStatus.UNAUTHORIZED).json({
+            code: HttpStatus.UNAUTHORIZED,
+            message: 'Authorization token is Incorrect'
+          
+        });
+      }else {
+        req.body.userId = data.EmailId
+        next();
+      }
+    });
+    
+  } catch (error) {
+    next(error);
+  }
+};
+

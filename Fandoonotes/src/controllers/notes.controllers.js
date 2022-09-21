@@ -97,3 +97,41 @@ export const deleteNotes = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * Controller to archive a notes
+ * @param  {object} req - request object
+ * @param {object} res - response object
+ * @param {Function} next
+ */
+export const archiveNotes = async (req, res, next) => {
+  try {
+    const data = await noteService.archiveNotes(req.params._id);
+    res.status(HttpStatus.ACCEPTED).json({
+      code: HttpStatus.ACCEPTED,
+      data: data,
+      message: 'Archived Note Successfully'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Controller to trash a notes
+ * @param  {object} req - request object
+ * @param {object} res - response object
+ * @param {Function} next
+ */
+export const trashNotes = async (req, res, next) => {
+  try {
+    const data = await noteService.trashNotes(req.params._id);
+    res.status(HttpStatus.ACCEPTED).json({
+      code: HttpStatus.ACCEPTED,
+      data: data,
+      message: 'Note trash Successfull'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
