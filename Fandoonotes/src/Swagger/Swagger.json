@@ -330,8 +330,77 @@
                     }
                 ]
             }
+        },
+        "/note/{_id}/archive": {
+            "put": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "Update note by id",
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "_id",
+                        "in": "path",
+                        "description": "note Id",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/newNotes"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "archive notes succesfully"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/note/{_id}/trash": {
+            "delete": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "delete note by id",
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "_id",
+                        "in": "path",
+                        "description": "note Id",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/newNotes"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "trash notes succesfully"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
         }
     },
+    
     "securityDefinitions": {
         "JWT": {
             "type": "apiKey",
