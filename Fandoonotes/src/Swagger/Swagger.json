@@ -336,7 +336,7 @@
                 "tags": [
                     "Notes"
                 ],
-                "summary": "Update note by id",
+                "summary": "archive note by id",
                 "produces": [],
                 "parameters": [
                     {
@@ -366,11 +366,11 @@
             }
         },
         "/note/{_id}/trash": {
-            "delete": {
+            "put": {
                 "tags": [
                     "Notes"
                 ],
-                "summary": "delete note by id",
+                "summary": "trash note by id",
                 "produces": [],
                 "parameters": [
                     {
