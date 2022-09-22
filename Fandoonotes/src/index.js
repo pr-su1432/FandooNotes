@@ -6,6 +6,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import SwaggerUi from 'swagger-ui-express';
 import SwaggerJSDoc from '../src/Swagger/Swagger.json';
+import redis from './config/redis';
 
 import routes from './routes';
 import database from './config/database';
@@ -31,6 +32,7 @@ app.use(morgan('combined', { stream: logStream }));
 app.use('/api-docs', SwaggerUi.serve,SwaggerUi.setup(SwaggerJSDoc));
 
 database();
+redis();
 
 app.use(`/api/${api_version}`, routes());
 app.use(appErrorHandler);

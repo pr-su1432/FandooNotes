@@ -10,7 +10,19 @@ const noteSchema = new Schema(
             type: String,
             required: true,
         },
-        
+        Color: {
+            type: String,
+        },
+        isArchived: {
+            type: Boolean, default: false
+        },
+        isDeleted: {
+            type: Boolean, default: false
+        },
+        userId: {
+            type: String,
+            
+        }
     },
 
     {

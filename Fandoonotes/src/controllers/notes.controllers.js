@@ -106,7 +106,7 @@ export const deleteNotes = async (req, res, next) => {
  */
 export const archiveNotes = async (req, res, next) => {
   try {
-    const data = await noteService.archiveNotes(req.params._id);
+    const data = await noteService.archiveNotes(req.params._id,req.body);
     res.status(HttpStatus.ACCEPTED).json({
       code: HttpStatus.ACCEPTED,
       data: data,
