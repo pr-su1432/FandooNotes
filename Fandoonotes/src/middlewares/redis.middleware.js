@@ -2,7 +2,7 @@ import {client} from "../config/redis";
 
 export const redis_data = async(req, res, next) => {
     
-    const data = await client.get('getAllData');
+    const data = await client.get('all notes');
     if(data!=null){
         res.status(200).json({
             code: 200,

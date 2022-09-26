@@ -3,6 +3,7 @@ import User from '../models/user.model';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { sendMail } from '../utils/user.util';
+import { sender } from '../config/rabbitMQ';
 
 
 //create new user
@@ -19,9 +20,9 @@ export const newUser = async (body) => {
     console.log("Hash Password in service=====> ", hashPassword)
     body.Password = hashPassword
     console.log("user details in after password hashing=====> ", body)
-
-
     const data = await User.create(body);
+    sender(data);
+    console.log("rabbitmq=====$$$$$$$$$$$$$----->",data);
     return data;
   }
 };
