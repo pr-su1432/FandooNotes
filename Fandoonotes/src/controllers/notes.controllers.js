@@ -180,3 +180,24 @@ export const trashNotes = async (req, res, next) => {
 }
 };
 
+/**
+ * Controller to add collaborater  to notes
+ * @param  {object} req - request object
+ * @param {object} res - response object
+ * @param {Function} next
+ */
+ export const addCollaborator = async (req, res, next) => {
+  try {
+    const data = await noteService.addCollaborator(req.params._id,req.body.collaborate);
+    res.status(HttpStatus.CREATED).json({
+      code: HttpStatus.CREATED,
+      data: data,
+      message: 'collabiration added successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+      code: HttpStatus.BAD_REQUEST,
+      message: `${error}`
+    });
+  }
+};

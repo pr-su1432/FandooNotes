@@ -26,6 +26,9 @@ const noteSchema = new Schema(
         },
         labels : [{
             type: String
+        }],
+        collaborate : [{
+            type: String
         }]
     },
 
@@ -34,4 +37,4 @@ const noteSchema = new Schema(
     }
 );
 
-export default model('Note', noteSchema);
+export default model('note', noteSchema);

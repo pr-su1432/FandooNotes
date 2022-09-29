@@ -1,6 +1,5 @@
 import note from '../models/notes.models';
 import{client} from '../config/redis';
-//import{_id} from '@hapi/joi/lib/base';
 import Label from '../models/label.model';
 
 //get all notes
@@ -118,4 +117,23 @@ export const deleteLabel = async (_id, labels) => {
       } 
     );
   return data;
+};
+
+//add collabarator to notes
+export const addCollaborator = async (_id, collaborate) => {
+  const labelCheck = await note.find({id:collaborate});
+  if(labelCheck != null){
+    const data = await note.findByIdAndUpdate(
+      {
+        _id: _id
+      },
+      {
+        $push:{"collaborate":collaborate}
+      },
+      {
+        new: true
+      });
+    return data;
+  }
+
 };
