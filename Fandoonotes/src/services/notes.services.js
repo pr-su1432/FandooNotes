@@ -1,6 +1,5 @@
 import note from '../models/notes.models';
 import{client} from '../config/redis';
-//import{_id} from '@hapi/joi/lib/base';
 import Label from '../models/label.model';
 
 //get all notes
