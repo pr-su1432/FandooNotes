@@ -135,3 +135,25 @@ export const trashNotes = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * Controller to trash a notes
+ * @param  {object} req - request object
+ * @param {object} res - response object
+ * @param {Function} next
+ */
+ export const addlabel = async (req, res, next) => {
+  try {
+    const data = await noteService.addlabel(req.params._id,req.body.labels);
+    res.status(HttpStatus.CREATED).json({
+      code: HttpStatus.CREATED,
+      data: data,
+      message: 'label added successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+      code: HttpStatus.BAD_REQUEST,
+      message: `${error}`
+    });
+  }
+};

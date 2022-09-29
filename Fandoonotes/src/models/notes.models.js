@@ -1,3 +1,4 @@
+import { string } from '@hapi/joi';
 import { Schema, model } from 'mongoose';
 
 const noteSchema = new Schema(
@@ -22,7 +23,10 @@ const noteSchema = new Schema(
         userId: {
             type: String,
             
-        }
+        },
+        labels : [{
+            type: String
+        }]
     },
 
     {

@@ -1,6 +1,7 @@
 import note from '../models/notes.models';
 import{client} from '../config/redis';
-
+//import{_id} from '@hapi/joi/lib/base';
+import Label from '../models/label.model';
 
 //get all notes
 export const getAllNotes = async () => {
@@ -84,3 +85,22 @@ export const trashNotes = async (_id) => {
   console.log("trashed data===>",data)
   return data;
 }
+
+//add label to notes
+export const addlabel = async (_id, labels) => {
+  const labelCheck = await Label.find({id:labels});
+  if(labelCheck != null){
+    const data = await note.findByIdAndUpdate(
+      {
+        _id: _id
+      },
+      {
+        labels: labels
+      },
+      {
+        new: true
+      });
+    return data;
+  }
+
+};

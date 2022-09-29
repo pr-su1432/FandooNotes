@@ -33,4 +33,7 @@ router.put('/:_id/archive/',userAuth, noteController.archiveNotes);
 //route to trash Note
 router.put('/:_id/trash/',userAuth, noteController.trashNotes);
 
+//route to Add  label to Note
+router.put('/:_id/addlabels',userAuth, noteController.addlabel);
+
 export default router;
