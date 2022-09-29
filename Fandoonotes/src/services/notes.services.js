@@ -1,5 +1,6 @@
 import note from '../models/notes.models';
 import{client} from '../config/redis';
+//import{_id} from '@hapi/joi/lib/base';
 import Label from '../models/label.model';
 
 //get all notes
@@ -102,4 +103,19 @@ export const addlabel = async (_id, labels) => {
     return data;
   }
 
+};
+//remove label from  note
+export const deleteLabel = async (_id, labels) => {
+    const data = await note.findByIdAndUpdate(
+      { 
+        _id: _id 
+      }, 
+      { 
+        labels: [labels.del] 
+      }, 
+      {
+        new: true
+      } 
+    );
+  return data;
 };

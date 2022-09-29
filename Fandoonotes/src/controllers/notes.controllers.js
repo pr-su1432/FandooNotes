@@ -137,7 +137,7 @@ export const trashNotes = async (req, res, next) => {
 };
 
 /**
- * Controller to trash a notes
+ * Controller to add label  to notes
  * @param  {object} req - request object
  * @param {object} res - response object
  * @param {Function} next
@@ -157,3 +157,26 @@ export const trashNotes = async (req, res, next) => {
     });
   }
 };
+
+/**
+ * Controller to delete label to notes
+ * @param  {object} req - request object
+ * @param {object} res - response object
+ * @param {Function} next
+ */
+ export const deleteLabel = async (req, res, next) => {
+  try {
+    const data = await noteService.deleteLabel(req.params._id,req.body.labels);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'label removed successfully'
+    });
+  }  catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+        code: HttpStatus.BAD_REQUEST,
+        message: `${error}`
+    });
+}
+};
+
