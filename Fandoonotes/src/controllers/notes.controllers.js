@@ -201,3 +201,25 @@ export const trashNotes = async (req, res, next) => {
     });
   }
 };
+
+/**
+ * Controller to delete label to notes
+ * @param  {object} req - request object
+ * @param {object} res - response object
+ * @param {Function} next
+ */
+ export const deleteCollaborator = async (req, res, next) => {
+  try {
+    const data = await noteService.deleteCollaborator(req.params._id,req.body.collaborate);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'collaborate removed successfully'
+    });
+  }  catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+        code: HttpStatus.BAD_REQUEST,
+        message: `${error}`
+    });
+}
+};

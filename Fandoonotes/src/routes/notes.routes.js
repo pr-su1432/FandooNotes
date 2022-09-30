@@ -42,5 +42,9 @@ router.delete('/:_id/deletelabels', noteController.deleteLabel);
 //route to Add  collaborator to Note
 router.post('/:_id/collaborator', noteController.addCollaborator);
 
+//route to Add  label to Note
+router.delete('/:_id/deleteCollaborator', noteController.deleteCollaborator);
+
+
 
 export default router;

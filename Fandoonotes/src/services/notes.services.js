@@ -94,7 +94,7 @@ export const addlabel = async (_id, labels) => {
         _id: _id
       },
       {
-        labels: labels
+        $addToSet:{"labels": labels }
       },
       {
         new: true
@@ -110,7 +110,7 @@ export const deleteLabel = async (_id, labels) => {
         _id: _id 
       }, 
       { 
-        labels: [labels.del] 
+        $pull:{"labels": labels}
       }, 
       {
         new: true
@@ -128,7 +128,7 @@ export const addCollaborator = async (_id, collaborate) => {
         _id: _id
       },
       {
-        $push:{"collaborate":collaborate}
+        $addToSet:{"collaborate":  collaborate}
       },
       {
         new: true
@@ -136,4 +136,20 @@ export const addCollaborator = async (_id, collaborate) => {
     return data;
   }
 
+};
+
+//remove collaborator from  note
+export const deleteCollaborator = async (_id, collaborate) => {
+  const data = await note.findByIdAndUpdate(
+    { 
+      _id: _id 
+    }, 
+    { 
+      $pull:{"collaborate": collaborate}
+    }, 
+    {
+      new: true
+    } 
+  );
+return data;
 };
